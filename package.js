@@ -4,13 +4,13 @@ var profile = (function () {
             "dojo-model/package": 1
         },
         amdExcludes = {},
-        isTestRe = /\/tests\//
-    ;
+        isTestRe = /\/tests\//,
+        isAppRe  = /\/app\//;
 
     return {
         resourceTags: {
             test: function (filename, mid) {
-                return isTestRe.test(filename);
+                return isTestRe.test(filename) || isAppRe.test(filename);
             },
 
             miniExclude: function (filename, mid) {
