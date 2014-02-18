@@ -53,14 +53,14 @@ Fetch method loads model from the store. It assumes that model has *id* attribut
 *parse()* method copies attributes to model object's attributes.  
 This method returns dojo *Promise*, so data are loaded asynchronously from the store.
 
-  project.fetch().then(
-    function(project) {
-      console.log("LOADED project: ", project);
-    },
-    function(error) {
-      console.log("LOADING ERROR: ", error);
-    }
-  );
+    project.fetch().then(
+      function(project) {
+        console.log("LOADED project: ", project);
+      },
+      function(error) {
+        console.log("LOADING ERROR: ", error);
+      }
+    );
 
 * save()
 
@@ -68,14 +68,14 @@ Save method either creates new object in store or changes attributes of existing
 New object is created via the call to *POST* http method.  
 Existing object is updated via the call to *PUT* http method.
 
-  project.save().then(
-    function(project) {
-      console.log("SAVED project: ", project);
-    },
-    function(error) {
-      console.log("SAVING error: ", error);
-    }
-  );
+    project.save().then(
+      function(project) {
+        console.log("SAVED project: ", project);
+      },
+      function(error) {
+        console.log("SAVING error: ", error);
+      }
+    );
 
 
 * parse(data)
@@ -91,31 +91,31 @@ If attribute have *Serializer* method defined it is called.
 
 Create new store object.
 
-  var store = new dojo.store.JsonRest({
-    target: "http://localhost:8081/api/project/"
-  });
+    var store = new dojo.store.JsonRest({
+      target: "http://localhost:8081/api/project/"
+    });
 
 Create new model object. Put store as reference.
 
-  var project = new ProjectModel({
-    name: "MyProject",
-    children: true,
-    store: store
-  });
+    var project = new ProjectModel({
+      name: "MyProject",
+      children: true,
+      store: store
+    });
 
 Set model object id and fetch its data from the store.
 
-  project.set("id", "1");
-  project.fetch().then(function(project) {
-    console.log("LOADED project: ", project);
-  });
+    project.set("id", "1");
+    project.fetch().then(function(project) {
+      console.log("LOADED project: ", project);
+    });
 
 Change model object's attributes and save then to the store.
 
-  project.set("name", "MyNewName");
-  project.save().then(function(project) {
-    console.log("SAVED project: ", project);
-  });
+    project.set("name", "MyNewName");
+    project.save().then(function(project) {
+      console.log("SAVED project: ", project);
+    });
 
 
 ## Installation and testing
@@ -124,20 +124,20 @@ Change model object's attributes and save then to the store.
 
 2. Install dependencies
 
-> $ bower install
+    $ bower install
 
 3. Init testing application
 
-> $ cd app
-  $ npm install
-  $ cd ..
+    $ cd app
+    $ npm install
+    $ cd ..
 
 4. Run testing application
 
-> $ cd app
-  $ node app.js
+    $ cd app
+    $ node app.js
 
 5. Run casperjs tests
 
-> $ cd tests
-  $ casperjs test tests/ModelTest.js
+    $ cd tests
+    $ casperjs test tests/ModelTest.js
