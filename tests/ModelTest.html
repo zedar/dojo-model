@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>dojo-model/tests/ModelTest</title>
+</head>
+
+<body>
+
+  <div id="modelTest">
+    <h1>casper.js: modelTest</h1>
+    <p>
+      Run following command:
+      $ casperjs test tests/ModelTest.js
+    </p>
+  </div>
+
+  <script type="text/javascript">
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: false,
+      packages: [
+        {name: "dojo-underscore", location: "../dojo-underscore"},
+        {name: "dojo-model", location: "../../.."},
+        {name: "tests", location: "../../../tests"}
+      ]
+    };
+  </script>
+
+  <script type="text/javascript" src="../vendor/bower_components/dojo/dojo.js"></script>
+
+  <script type="text/javascript">
+  require([
+    "dojo/_base/kernel", "dojo/parser", 
+    "dojo/store/Memory",
+    "dojo/store/JsonRest",
+    "tests/ProjectModel", 
+    "dojo/domReady!"], function(kernel, parser, Memory, JsonRest, ProjectModel) {
+    parser.parse();
+  });
+  </script>
+</body>
+
+</html>

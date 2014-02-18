@@ -1,0 +1,6 @@
+{
+  "name": "dojo-model",
+  "description": "Base classes for model data objects compatible with dojo",
+  "version": "0.0.1",
+  "dojoBuild": "package.js"
+}

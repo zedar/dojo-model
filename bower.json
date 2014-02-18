@@ -1,0 +1,23 @@
+{
+  "name": "dojo-model",
+  "version": "0.1",
+  "authors": [
+    "zedar <zakrzewski.robert@gmail.com>"
+  ],
+  "description": "Data model base classes compatible with dojo framework",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "dojo": "1.9",
+    "dojo-util": "1.9",
+    "dojo-underscore": "~0.0.2"
+  }
+}
