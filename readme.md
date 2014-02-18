@@ -124,11 +124,11 @@ Change model object's attributes and save then to the store.
 
 2. Install dependencies
 
-    $ bower install
+>   $ bower install
 
 3. Init testing application
 
-    $ cd app
+>   $ cd app
     $ npm install
     $ cd ..
 
