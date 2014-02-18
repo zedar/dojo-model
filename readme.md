@@ -120,24 +120,26 @@ Change model object's attributes and save then to the store.
 
 ## Installation and testing
 
-1. Download the project from github
+Download the project from github
 
-2. Install dependencies
+Install dependencies
 
->   $ bower install
+    $ bower install
 
-3. Init testing application
+Init testing application
 
->   $ cd app
+    $ cd app
     $ npm install
     $ cd ..
 
-4. Run testing application
+Run testing application
 
     $ cd app
     $ node app.js
 
-5. Run casperjs tests
+Run casperjs tests
 
     $ cd tests
     $ casperjs test tests/ModelTest.js
+
+
