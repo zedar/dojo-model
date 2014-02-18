@@ -13,34 +13,34 @@ Every attribute could have it's own *Validator* and *Serializer*.
 Attribute's validator is called internally in *validate()* method.  
 Attribute's serialized is called internally in *toJSON()* method.
 
-  define(["dojo/_base/declare", "dojo-model/Model"], function(declare, Model) {
-    var _class = declare("ProjectModel", [Model], {
-      defaults: {
-        name: "Project",
-        children: true
-      },
+    define(["dojo/_base/declare", "dojo-model/Model"], function(declare, Model) {
+      var _class = declare("ProjectModel", [Model], {
+        defaults: {
+          name: "Project",
+          children: true
+        },
 
-      nameValidator: function() {
-        var v = this.get("name");
-        if (!v) {
-          return [{errorCode: "MISSING_NAME", errorDescr: "The name is missing"}];
-        }
-        return null;
-      },
+        nameValidator: function() {
+          var v = this.get("name");
+          if (!v) {
+            return [{errorCode: "MISSING_NAME", errorDescr: "The name is missing"}];
+          }
+          return null;
+        },
 
-      childrenSerializer: function() {
-        var ch = this.get("children");
-        if (typeof ch === "boolean") {
-          return [];
+        childrenSerializer: function() {
+          var ch = this.get("children");
+          if (typeof ch === "boolean") {
+            return [];
+          }
+          else {
+            return ch;
+          }
         }
-        else {
-          return ch;
-        }
-      }
+      });
+
+      return _class;
     });
-
-    return _class;
-  });
 
 
 ### Model methods
