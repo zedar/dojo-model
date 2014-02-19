@@ -5,8 +5,9 @@ define([
   "dojo/Deferred",
   "dojo/promise/Promise",
   "dojo/when",
-  "dojo-underscore/underscore"
-], function(declare, lang, Stateful, Deferred, Promise, when, u) {
+  "dojo-underscore/underscore",
+  "dojo-model/ModelError"
+], function(declare, lang, Stateful, Deferred, Promise, when, u, ModelError) {
   "use strict";
   // module:
   //  dojo-model/Model
@@ -47,7 +48,7 @@ define([
           if (typeof validator === "function") {
             var err = validator.apply(this, []);
             if (err) {
-              errors.push(err);
+              err.addTo(errors);
             }
           }
         }
@@ -64,19 +65,17 @@ define([
       var id = this.get("id");
 
       if (!id) {
-        return deferred.reject([{errorCode: "NO_ID", errorDescr: "Object's id is missing"}]);
+        return deferred.reject([new ModelError({code: "NO_ID", descr: "Object's id is missing"})]);
       }
       if (!this.store) {
-        return deferred.reject([{errorCode: "NO_STORE"}]);
+        return deferred.reject([new ModelError({code: "NO_STORE"})]);
       }
       when(this.store.get.call(this.store, id, options)).then(
         lang.hitch(this, function(data) {
-          console.log("GOT: ", JSON.stringify(data));
           this.parse(data);
           deferred.resolve(this);
         }),
         lang.hitch(this, function(error) {
-          console.log("GOT ERROR: ", JSON.stringify(error));
           deferred.reject(this._handleServerError(error));
         })
       );
@@ -91,7 +90,6 @@ define([
       var deferred = new Deferred();
       var errors = this.validate();
       if (errors) {
-        console.log("SAVE ERRORS: ", JSON.stringify(errors));
         return deferred.reject(errors);
       }
       
@@ -99,12 +97,10 @@ define([
       
       when(this.store.put.call(this.store, data, options)).then(
         lang.hitch(this, function(model) {
-          console.log("SAVE GOT: ", JSON.stringify(model));
           this.set("id", model.id);
           deferred.resolve(this);
         }),
         lang.hitch(this, function(error) {
-          console.log("SAVE ERROR: ", error);
           deferred.reject(this._handleServerError(error));
         })
       );
@@ -151,22 +147,22 @@ define([
 
     _handleServerError: function(error) {
       if (!error.response) {
-        return {errorCode: "UNKNOWN_ERROR"};
+        return new ModelError({code: "UNKNOWN_ERROR"});
       }
       else if (error.response.status === 400) {
-        return {errorCode: "UNKNOWN_ERROR"};
+        return new ModelError({code: "UNKNOWN_ERROR"});
       }
       else if (error.response.status === 403) {
-        return {errorCode: "FORBIDDED"};
+        return new ModelError({code: "FORBIDDED"});
       }
       else if (error.response.status === 404) {
-        return {errorCode: "NOT_FOUND"};
+        return new ModelError({code: "NOT_FOUND"});
       }
       else if (error.response.status === 422) {
-        return {errorCode: "INVALID_INPUT"};
+        return new ModelError({code: "INVALID_INPUT"});
       }
       else {
-        return {errorCode: "UNKNOWN_ERROR"};
+        return new ModelError({code: "UNKNOWN_ERROR"});
       }
     }
   });

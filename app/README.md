@@ -19,3 +19,9 @@ save is library that simplifies saving and restoring data to in memory store
   $ node app.js
   $ cd ..
   $ casperjs test tests/ModelTest.js
+
+## Helper links
+
+Testing async requests with casperJS
+
+https://groups.google.com/forum/#!topic/casperjs/e9MSEh4BZxI

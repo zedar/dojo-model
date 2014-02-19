@@ -72,7 +72,7 @@ casper.then(function() {
   this.test.assert(_.isArray(errors), "Validator should return array of errors");
   
   var res = _.find(errors, function(err) {
-    if (_.isObject(err) && _.has(err, "errorCode")) {
+    if (_.isObject(err) && _.has(err, "code")) {
       return true;
     }
     else {
@@ -80,7 +80,7 @@ casper.then(function() {
     }
   });
 
-  this.test.assert(_.isObject(res), "Error should have object with property errorCode");
+  this.test.assert(_.isObject(res), "Error should have object with property code");
 });
 
 // test fetch method - with dojo/store/Memory
