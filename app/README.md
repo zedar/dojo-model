@@ -17,8 +17,16 @@ save is library that simplifies saving and restoring data to in memory store
 
   $ npm install
   $ node app.js
-  $ cd ..
+
+## Run tests
+
+Test *Model.js* class.
+
   $ casperjs test tests/ModelTest.js
+
+Test *ModelCollection.js* class.
+
+  $ casperjs test tests/ModelCollectionTest.js
 
 ## Helper links
 

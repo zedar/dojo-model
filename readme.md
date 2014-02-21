@@ -5,7 +5,7 @@ Store could be any object implementing dojo/store/api/store interface.
 
 ## dojo-model.Model
 
-### Example Model class
+### Example of Model class usage
 
 Definition of new model object *ProjectModel*. It has default attributes *name* and *children* defined. 
 When new object instance is created and no *name* and *children* attributes are provided, then they will get default values.
@@ -117,6 +117,39 @@ Change model object's attributes and save then to the store.
       console.log("SAVED project: ", project);
     });
 
+## dojo-model.ModelCollection
+
+Collection is a set of Models. It is possible to fetch whole collection form the data store (implementation of
+dojo/store/api/store interface).
+
+### Example of usage
+
+You can either create your own collection class or use *ModelCollection* as it is.
+
+  define(["dojo/_base/declare", "dojo-model.ModelCollection", "ProjectModel"], function(declare, ModelCollection, ProjectModel) {
+    var _class = declare("ProjectModelCollection", [ModelCollection], {
+      model: ProjectModel
+    });
+
+    return _class;
+  });
+
+### Methods
+
+* fetch()
+
+Fetch method loads collection (array) of models from the store. 
+After the successfull store call for every loaded item new instance of assigned model (attribute of collection) is created.
+This method returns dojo *Promise*, so data are loaded asynchronously from the store.
+
+    projectModelCollection.fetch().then(
+      function(project) {
+        console.log("LOADED projects: ", this.models);
+      },
+      function(error) {
+        console.log("LOADING ERROR: ", error);
+      }
+    );
 
 ## Installation and testing
 
