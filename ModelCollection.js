@@ -50,8 +50,13 @@ define([
       }
       console.log("BEFORE QUERY");
       when(this.store.query.call(this.store, null, options)).then(
-        lang.hitch(this, function(items) {
-          this.parse(items);
+        lang.hitch(this, function(data) {
+          if (typeof data.items === "object") {
+            this.parse(data.items);
+          }
+          else {
+            this.parse(items);
+          }
           deferred.resolve(this);
         }),
         lang.hitch(this, function(error) {
