@@ -71,6 +71,15 @@ define([
         var m = new this.model(item);
         this.models[this.models.length] = m;
       }, this);
+
+      if (typeof this.onParse === "function") {
+        this.onParse();
+      }
+    },
+
+    onParse: function() {
+      // summary:
+      //    Override this method in order to add custom functionality at the end of parse items loaded from the store
     },
 
     _initialize: function(attrs) {

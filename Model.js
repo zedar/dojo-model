@@ -113,6 +113,11 @@ define([
       this._initialize(data);
     },
 
+    onParse: function() {
+      // summary:
+      //    Override this method in order to add custom parsing at the end of loading from the store
+    },
+
     toJSON: function() {
       // summary:
       //    Return copy of model's attributes for JSON.stringify.
