@@ -35,7 +35,6 @@ define([
       if (!u.isArray(this.models)) {
         this.models = [];
       }
-      console.log("AFTER INITIALIZATION");
     },
 
     fetch: function(options) {
@@ -43,12 +42,10 @@ define([
       //    Fetch model objects from the store and add them to this.models attribute
       // return:
       //    array of models
-      console.log("START FETCH");
       var deferred = new Deferred();
       if (!this.store) {
         return deferred.reject([new ModelError({code: "NO_STORE", descr: "Data store is not defined"})]);
       }
-      console.log("BEFORE QUERY");
       when(this.store.query.call(this.store, null, options)).then(
         lang.hitch(this, function(data) {
           if (typeof data.items === "object") {
@@ -69,15 +66,11 @@ define([
     parse: function(items) {
       // summary:
       //    Deserialize array of results to this.models
-      console.log("PARSE: ", JSON.stringify(items));
       this.models.length = 0;
       u.each(items, function(item, index) {
-        console.log("PARSE ITEM: ", JSON.stringify(item));
         var m = new this.model(item);
-        console.log("PARSED OBJECT", JSON.stringify(m));
         this.models[this.models.length] = m;
       }, this);
-      console.log("PARSED MODELS: ", JSON.stringify(this.models));
     },
 
     _initialize: function(attrs) {
@@ -98,6 +91,9 @@ define([
       }
       else if (error.response.status === 400) {
         return new ModelError({code: "UNKNOWN_ERROR"});
+      }
+      else if (error.response.status === 401) {
+        return new ModelError({code: "NOT_AUTHORIZED"});
       }
       else if (error.response.status === 403) {
         return new ModelError({code: "FORBIDDED"});

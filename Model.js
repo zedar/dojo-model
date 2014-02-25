@@ -152,6 +152,9 @@ define([
       else if (error.response.status === 400) {
         return new ModelError({code: "UNKNOWN_ERROR"});
       }
+      else if (error.response.status === 401) {
+        return new ModelError({code: "NOT_AUTHORIZED"});
+      }
       else if (error.response.status === 403) {
         return new ModelError({code: "FORBIDDED"});
       }
