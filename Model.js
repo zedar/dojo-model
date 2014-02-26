@@ -111,6 +111,9 @@ define([
       // summary:
       //    Deserialize data to the current properties
       this._initialize(data);
+      if (typeof this.onParse === "function") {
+        this.onParse();
+      }
     },
 
     onParse: function() {
