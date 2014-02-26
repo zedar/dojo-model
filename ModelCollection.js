@@ -28,6 +28,10 @@ define([
     //    Array of loaded models
     models: null,
 
+    // itemsAttribute: string
+    //    The name of attribute that contains items
+    itemsAttribute: "items",
+
     constructor: function(attrs) {
       // attrs: object
       //    Provides attributes to be mixed in this object.
@@ -48,11 +52,11 @@ define([
       }
       when(this.store.query.call(this.store, null, options)).then(
         lang.hitch(this, function(data) {
-          if (typeof data.items === "object") {
-            this.parse(data.items);
+          if (typeof data[this.itemsAttribute] === "object") {
+            this.parse(data[this.itemsAttribute]);
           }
           else {
-            this.parse(items);
+            this.parse(data);
           }
           deferred.resolve(this);
         }),
